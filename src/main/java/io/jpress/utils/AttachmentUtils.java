@@ -50,9 +50,9 @@ public class AttachmentUtils {
 				.append(File.separator).append(dateFormat.format(new Date())).append(File.separator).append(uuid)
 				.append(FileUtils.getSuffix(file.getName()));
 
-		String dataDir = System.getenv("OPENSHIFT_DATA_DIR");
+		String dataDir = System.getenv("HOME");
 		if(!StringUtils.isBlank(dataDir)){
-			StringBuilder backFile = new StringBuilder(dataDir).append("attachment")
+			StringBuilder backFile = new StringBuilder(dataDir).append("/attachment")
 					.append(File.separator).append(dateFormat.format(new Date())).append(File.separator).append(uuid)
 					.append(FileUtils.getSuffix(file.getName()));
 			File newfile = new File(newFileName.toString());

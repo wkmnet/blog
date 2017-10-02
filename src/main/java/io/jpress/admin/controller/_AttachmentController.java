@@ -42,7 +42,6 @@ import io.jpress.template.Thumbnail;
 import io.jpress.utils.AttachmentUtils;
 import io.jpress.utils.FileUtils;
 import io.jpress.utils.ImageUtils;
-import io.jpress.utils.StringUtils;
 
 @RouterMapping(url = "/admin/attachment", viewPath = "/WEB-INF/admin/attachment")
 @Before(ActionCacheClearInterceptor.class)
@@ -68,8 +67,8 @@ public class _AttachmentController extends JBaseCRUDController<Attachment> {
 		BigInteger id = getParaToBigInteger("id");
 		Attachment attachment = AttachmentQuery.me().findById(id);
 		setAttr("attachment", attachment);
-		String dataDir = System.getenv("OPENSHIFT_DATA_DIR");
-		String rootPath = StringUtils.isBlank(dataDir)?PathKit.getWebRootPath():dataDir;
+//		String dataDir = System.getenv("OPENSHIFT_DATA_DIR");
+		String rootPath = PathKit.getWebRootPath();
 		File attachmentFile = new File(rootPath, attachment.getPath());
 		setAttr("attachmentName", attachmentFile.getName());
 

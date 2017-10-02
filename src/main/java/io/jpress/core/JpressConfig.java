@@ -76,12 +76,17 @@ public abstract class JpressConfig extends JFinalConfig {
 		constants.setViewType(ViewType.FREE_MARKER);
 		constants.setI18nDefaultBaseName("language");
 		constants.setErrorRenderFactory(new JErrorRenderFactory());
-		String dataDir = System.getenv("OPENSHIFT_DATA_DIR");
-		if(StringUtils.isBlank(dataDir)){
+		String home = System.getenv("HOME");
+		if(StringUtils.isBlank(home)){
 			//不存在
 			constants.setBaseUploadPath("attachment");
 		} else {
-			constants.setBaseUploadPath(dataDir.concat("attachment"));
+			File dir = new File(home);
+			File attachment= new File(dir, "attachment");
+			if(!attachment.exists()){
+				attachment.mkdir();
+			}
+			constants.setBaseUploadPath(attachment.getAbsolutePath());
 		}
 		constants.setEncoding(Consts.CHARTSET_UTF8);
 		constants.setMaxPostSize(1024 * 1024 * 200);
